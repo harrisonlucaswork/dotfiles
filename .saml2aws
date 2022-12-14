@@ -1,0 +1,52 @@
+[comm-p-a] 
+app_id               =  
+url                  = https://personify.okta.com/home/amazon_aws/0oa1j2c53ymR9T97V1d8/272 
+username             = lharrison@personifycorp.com 
+provider             = Okta 
+mfa                  = PUSH 
+skip_verify          = false 
+timeout              = 0 
+aws_urn              = urn:amazon:webservices 
+aws_session_duration = 3600 
+aws_profile          = comm-p-a 
+resource_id          =  
+subdomain            =  
+role_arn             = arn:aws:iam::812010420230:role/UE1AD01-Admin 
+region               = us-east-1 
+http_attempts_count  =  
+http_retry_delay     =  
+[comm-np-a] 
+app_id               =  
+url                  = https://personify.okta.com/home/amazon_aws/0oa1j2c53ymR9T97V1d8/272 
+username             = lharrison@personifycorp.com 
+provider             = Okta 
+mfa                  = PUSH 
+skip_verify          = false 
+timeout              = 0 
+aws_urn              = urn:amazon:webservices 
+aws_session_duration = 43200 
+aws_profile          = comm-np-a 
+resource_id          =  
+subdomain            =  
+role_arn             = arn:aws:iam::672761221645:role/UE1AD01-Admin 
+region               = us-east-1 
+http_attempts_count  =  
+http_retry_delay     =  
+# Sandbox Admin 
+[sandbox-a] 
+app_id               =  
+url                  = https://personify.okta.com/home/amazon_aws/0oa1j2c53ymR9T97V1d8/272 
+username             = lharrison@personifycorp.com 
+provider             = Okta 
+mfa                  = PUSH 
+skip_verify          = false 
+timeout              = 0 
+aws_urn              = urn:amazon:webservices 
+aws_session_duration = 43200 
+aws_profile          = sandbox-a 
+resource_id          =  
+subdomain            =  
+role_arn             = arn:aws:iam::456403635917:role/UE1AD01-Admin 
+region               = us-east-1 
+http_attempts_count  =  
+http_retry_delay     =
