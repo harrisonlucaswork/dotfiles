@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/bin/bash
 
 set -e
 
@@ -13,5 +13,5 @@ export DOTFILES_LOCATION;
 ###
 for i in $DOTFILES_LOCATION/*/install.sh
 do
-	sh $i
+	bash $i
 done
