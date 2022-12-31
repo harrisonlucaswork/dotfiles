@@ -5,7 +5,7 @@ set -e
 ###
 # Installation of packages, configurations, and dotfiles.
 ###
-DOTFILES_LOCATION=$(pwd)
+DOTFILES_LOCATION=$HOME/dotfiles
 export DOTFILES_LOCATION;
 
 ###
