@@ -1,8 +1,20 @@
 # Warning: This config does not include keys that have an unset value
-format = '$all'
 scan_timeout = 30
 command_timeout = 700
 add_newline = true
+format = """
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_state\
+$git_status\
+$git_metrics\
+$fill\
+$nodejs\
+$cmd_duration $jobs $time\
+$line_break\
+$character"""
 
 [aws]
 format = 'on [$symbol($profile )(\($region\) )(\[$duration\])]($style)'

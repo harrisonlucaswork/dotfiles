@@ -122,3 +122,5 @@ export XDG_CONFIG_HOME="~/.dotfiles/vim/.config"
 export PATH="/home/lucas/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)export PATH=$PATH:/home/lucas/.local/bin
 export PATH="${PATH}:~/.local/bin"
+
+eval "$(starship init bash)"
