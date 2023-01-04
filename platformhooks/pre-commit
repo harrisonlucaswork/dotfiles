@@ -1,0 +1,29 @@
+#!/bin/bash
+
+echo "php-cs-fixer pre commit hook start"
+
+PHP_CS_FIXER="/mnt/mlp/devtools/phpcsfixer/vendor/bin/php-cs-fixer"
+PHP_CS_FIXER_CONFIG="/mnt/mlp/devtools/phpcsfixer/.php-cs-fixer.dist.php"
+HAS_PHP_CS_FIXER=false
+
+if [ -x $PHP_CS_FIXER ]; then
+        HAS_PHP_CS_FIXER=true
+fi
+
+if $HAS_PHP_CS_FIXER; then
+        FILES=` git status --porcelain | grep -Ewv 'D|AD|R|vendor' | grep -E '(.php$)' | cut -c 4- | tr '\n' ' '`
+        if [ -z "$FILES" ]
+        then
+                echo "No php files found in commit."
+        else
+                echo ${FILES}
+                $PHP_CS_FIXER fix --config=${PHP_CS_FIXER_CONFIG} --verbose --using-cache=no ${FILES}
+                git add ${FILES}
+        fi
+else
+        echo "Please install php-cs-fixer, e.g.:"
+        echo " composer require --dev friendsofphp/php-cs-fixer"
+        exit 1
+fi
+
+echo "php-cs-fixer pre commit hook finish"
