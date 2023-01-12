@@ -58,7 +58,8 @@ function startsshagent()
 	eval `ssh-agent`
 	ssh-add /root/.ssh/id_rsa
 }
-alias shhagent='startsshagent'
+alias shhagent='ssh-add $HOME/.ssh/id_rsa_vm'
+alias getip="ip addr show eth0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}'"
 alias exd='sudo mv /usr/local/etc/php/conf.d/xdebug.ini.disabled /usr/local/etc/php/conf.d/xdebug.ini && service apache2 graceful'
 alias dxd='sudo mv /usr/local/etc/php/conf.d/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini.disabled && service apache2 graceful'
 #md () { docker exec -it mlp-containers_mlp-app_1 mysql --defaults-file=/mnt/mlp/config/mysql/root.cnf --prompt="\u@\h [\d]> " mlp_$@ ;}
@@ -252,5 +253,5 @@ function console()
 } 
 alias awsconsole="console"
 
-alias symul="source ~/symul/mozillatutorial/mozillatutorialvenv/bin/activate && cd ~/symul/cms"
+alias symul="cd ~/symul/cms &&  source ./venv/bin/activate"
 alias symulrunserver="docker start symul-rabbitmq && docker start symul-postgres-db && docker start symul-redis && symul && python3 manage.py runserver"

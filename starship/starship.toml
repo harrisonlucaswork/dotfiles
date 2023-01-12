@@ -1,7 +1,3 @@
-# Warning: This config does not include keys that have an unset value
-scan_timeout = 30
-command_timeout = 700
-add_newline = true
 format = """
 $username\
 $hostname\
@@ -16,6 +12,7 @@ $cmd_duration $jobs $time\
 $line_break\
 $character"""
 
+add_newline = true
 [aws]
 format = 'on [$symbol($profile )(\($region\) )(\[$duration\])]($style)'
 symbol = '☁️  '
@@ -194,7 +191,7 @@ disabled = false
 
 [git_branch]
 format = "on [$symbol$branch(:$remote_branch)]($style) "
-symbol = ' '
+symbol = ' '
 style = '117'
 truncation_length = 9223372036854775807
 truncation_symbol = '…'
