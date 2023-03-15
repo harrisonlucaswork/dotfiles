@@ -60,8 +60,8 @@ function startsshagent()
 }
 alias shhagent='ssh-add $HOME/.ssh/id_rsa_vm'
 alias getip="ip addr show eth0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}'"
-alias exd='sudo mv /usr/local/etc/php/conf.d/xdebug.ini.disabled /usr/local/etc/php/conf.d/xdebug.ini && service apache2 graceful'
-alias dxd='sudo mv /usr/local/etc/php/conf.d/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini.disabled && service apache2 graceful'
+alias exd='sudo mv /usr/local/etc/php/conf.d/xdebug.ini.disabled /usr/local/etc/php/conf.d/xdebug.ini && sudo mv /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini.disabled /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && service apache2 graceful'
+alias dxd='sudo mv /usr/local/etc/php/conf.d/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini.disabled && sudo mv /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini.disabled && service apache2 graceful'
 #md () { docker exec -it mlp-containers_mlp-app_1 mysql --defaults-file=/mnt/mlp/config/mysql/root.cnf --prompt="\u@\h [\d]> " mlp_$@ ;}
 
 alias vim='usenvim'
