@@ -194,10 +194,10 @@ function pcomm-ssm()
   [ -z "$3" ] && count=1 || count=$3 
   case "$1" in 
     prod) 
-      PROFILE=comm-p-a 
+      PROFILE=comm-p 
     ;; 
     stage|test|poc) 
-      PROFILE=comm-np-a 
+      PROFILE=comm-np 
     ;; 
     *) 
       echo $USAGE; return 1 
@@ -223,7 +223,7 @@ function pcomm-ssm()
       echo $USAGE; return 1 
     ;; 
   esac 
-  saml2aws login -a ${PROFILE} 
+  aws --profile ${PROFILE} sso login
   instance=$(aws --profile ${PROFILE} ec2 describe-instances \
                  --filters "Name=tag:Name,Values=${ENV}" \
                  --query "Reservations[*].Instances[*].InstanceId" \
