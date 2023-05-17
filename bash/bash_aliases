@@ -179,10 +179,10 @@ alias xvphp='XDEBUG_CONFIG="idekey=VSCODE" php'
 alias phpunit="/mnt/mlp/platform/vendor/phpunit/phpunit/phpunit"
 alias atest="phpunit --include-path austin -c /mnt/mlp/platform/tests/phpunit.xml"
 alias saml2aws="~/saml2aws/bin/saml2aws"
-alias loginnp="saml2aws login -a comm-np-a"
-alias loginp="saml2aws login -a comm-p-a" 
-alias shownp="aws --color off --profile comm-np-a ec2 describe-instances --query \"Reservations[*].Instances[*].{IP:PrivateIpAddress,Name:Tags[?Key=='Name']|[0].Value,InstanceId:InstanceId} | sort_by(@, &[0].Name)\" --output table" 
-alias showp="aws --color off --profile comm-p-a ec2 describe-instances --query \"Reservations[*].Instances[*].{IP:PrivateIpAddress,Name:Tags[?Key=='Name']|[0].Value,InstanceId:InstanceId}  | sort_by(@, &[0].Name)\" --output table" 
+alias loginnp="aws --profile=comm-np sso login" 
+alias loginp="aws --profile=comm-p sso login" 
+alias shownp="aws --color off --profile comm-np ec2 describe-instances --query \"Reservations[*].Instances[*].{IP:PrivateIpAddress,Name:Tags[?Key=='Name']|[0].Value,InstanceId:InstanceId} | sort_by(@, &[0].Name)\" --output table" 
+alias showp="aws --color off --profile comm-p ec2 describe-instances --query \"Reservations[*].Instances[*].{IP:PrivateIpAddress,Name:Tags[?Key=='Name']|[0].Value,InstanceId:InstanceId}  | sort_by(@, &[0].Name)\" --output table" 
 function connect() 
 { 
 	aws --profile comm-$1-a ssm start-session --target=$(aws --profile comm-$1-a ec2 describe-instances --filters "Name=tag:Name,Values=psfy-$201ue1-tools" --query "Reservations[*].Instances[*].InstanceId" --output text | tail -n1) 
