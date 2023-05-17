@@ -1,5 +1,6 @@
 # User specific aliases and functions
 alias cdmcp='cd /mnt/mlp/mcp'
+alias cdsmcp='cd /mnt/mlp/supermcp'
 alias cdplats='cd /mnt/mlp/platformschema'
 alias cdr='cd /mnt/mlp/release'
 alias cdrscript='cd /mnt/mlp/scripts/release'
@@ -212,6 +213,9 @@ function pcomm-ssm()
     ;; 
     sphinx) 
       ENV=psfy-${1}01ue1-sphinx 
+    ;; 
+    mcp) 
+      ENV=psfy-${1}01ue1-mcp 
     ;; 
     lb) 
       ENV=psfy-${1}01ue1-haproxy 
