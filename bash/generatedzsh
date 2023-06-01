@@ -232,7 +232,6 @@ function pcomm-ssm()
       echo $USAGE; return 1 
     ;; 
   esac 
-  aws --profile ${PROFILE} sso login
   instance=$(aws --profile ${PROFILE} ec2 describe-instances \
                  --filters "Name=tag:Name,Values=${ENV}" \
                  --query "Reservations[*].Instances[*].InstanceId" \
