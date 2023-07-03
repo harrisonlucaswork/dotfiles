@@ -181,8 +181,8 @@ alias atest="phpunit --include-path austin -c /mnt/mlp/platform/tests/phpunit.xm
 alias saml2aws="~/saml2aws/bin/saml2aws"
 alias loginnp="aws --profile=comm-np sso login" 
 alias loginp="aws --profile=comm-p sso login" 
-alias shownp="aws --color off --profile comm-np ec2 describe-instances --query \"Reservations[*].Instances[*].{IP:PrivateIpAddress,Name:Tags[?Key=='Name']|[0].Value,InstanceId:InstanceId} | sort_by(@, &[0].Name)\" --output table" 
-alias showp="aws --color off --profile comm-p ec2 describe-instances --query \"Reservations[*].Instances[*].{IP:PrivateIpAddress,Name:Tags[?Key=='Name']|[0].Value,InstanceId:InstanceId}  | sort_by(@, &[0].Name)\" --output table" 
+alias shownp="aws --color off --profile comm-np ec2 describe-instances --query \"Reservations[*].Instances[*].{IP:PrivateIpAddress,Name:Tags[?Key=='Name']|[0].Value,InstanceId:InstanceId,MLPPlatformVersion:Tags[?Key=='mlp_platform_version']|[0].Value} | sort_by(@, &[0].Name)\" --output table"
+alias showp="aws --color off --profile comm-p ec2 describe-instances --query \"Reservations[*].Instances[*].{IP:PrivateIpAddress,Name:Tags[?Key=='Name']|[0].Value,InstanceId:InstanceId,MLPPlatformVersion:Tags[?Key=='mlp_platform_version']|[0].Value} | sort_by(@, &[0].Name)\" --output table"
 function connect() 
 { 
 	aws --profile comm-$1-a ssm start-session --target=$(aws --profile comm-$1-a ec2 describe-instances --filters "Name=tag:Name,Values=psfy-$201ue1-tools" --query "Reservations[*].Instances[*].InstanceId" --output text | tail -n1) 
@@ -256,5 +256,3 @@ function console()
 } 
 alias awsconsole="console"
 
-alias symul="cd ~/symul/cms &&  source ./venv/bin/activate"
-alias symulrunserver="docker start symul-rabbitmq && docker start symul-postgres-db && docker start symul-redis && symul && python3 manage.py runserver"
