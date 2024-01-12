@@ -1,5 +1,1 @@
-bindkey "" paste-char
-bindkey "^[[3~" delete-char
-bindkey "^[[1;2F" end-of-line
-bindkey "^[[1;2H" beginning-of-line
 eval "$(starship init zsh)"

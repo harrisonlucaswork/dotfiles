@@ -1,15 +1,9 @@
 # User specific aliases and functions
-alias cdmcp='cd /mnt/mlp/mcp'
-alias cdsmcp='cd /mnt/mlp/supermcp'
-alias cdplats='cd /mnt/mlp/platformschema'
-alias cdr='cd /mnt/mlp/release'
-alias cdrscript='cd /mnt/mlp/scripts/release'
-alias cddb='cd /mnt/mlp/libs/DataObjects'
-alias cdt='cd /mnt/mlp/platform/tests'
-alias cdplat='cd /mnt/mlp/platform'
+alias cdtc='cd /Volumes/tc-case-sensitive/thrivecart'
+alias cda='cd /Volumes/tc-case-sensitive/admin'
+alias cddep='cd /Volumes/tc-case-sensitive/deployment'
 alias k='kubectl'
 alias n='nerdctl'
-alias cdcon='cd ~/mlp/mlp-containers'
 
 #GIT
 alias gundo='git reset --soft HEAD^ && git reset'
@@ -24,17 +18,10 @@ alias glog='git log --graph --pretty=format:"%C(yellow)%h%Creset%C(blue)%d%Crese
 alias gbranch='git log --graph --pretty=format:"%C(yellow)%h%Creset%C(blue)%d%Creset %C(white bold)%s%Creset %C(white dim)(by %an %ar)%Creset" --branches'
 alias gam='git am -3'
 alias gref='git reflog --date=local'
-alias lucaschown='sudo chown -R lucas:lucas ./* && sudo chown -R lucas:lucas ./.git/*'
-alias lucaschownmlp='sudo chown -R lucas:lucas /mnt/mlp/*'
-alias hooksdisable='mv /mnt/mlp/platform/.git/hooks /mnt/mlp/platform/.git/hooks-bk'
-alias hooksenable='mv /mnt/mlp/platform/.git/hooks-bk /mnt/mlp/platform/.git/hooks'
 alias expire_file='sudo touch -d "5 years ago" $@'
 #DB
 m () { mysql --defaults-file=/mnt/mlp/config/mysql/root.cnf --prompt="\u@\h [\d]> " $@ ;}
 mr () { mysql --defaults-file=/mnt/mlp/config/mysql/root.cnf --prompt="\u@\h [\d]> " mlp_$@ ;}
-ms() { mysql --defaults-file=/mnt/mlp/config/mysql/root.cnf --prompt="\u@\h [\d]> " -hdb6 mlp_$@ ;}
-my() { mysql --defaults-file=/mnt/mlp/config/mysql/root.cnf --prompt="\u@\h [\d]> " -hdb$1 mlp_$2 ;}
-my() { mysql --defaults-file=/mnt/mlp/config/mysql/root.cnf --prompt="\u@\h [\d]> " -hdb$1 mlp_$2 ;}
 
 #DOCKER
 alias ma='docker exec -it mlp-containers_mlp-app_1 mysql --defaults-file=/mnt/mlp/config/mysql/root.cnf mlp_austin;'
@@ -52,7 +39,6 @@ function connectToDockerAppWithAliases()
 		&& source /root/.bashrc"
 	docker exec -it mlp-containers_mlp-app_1 bash
 }
-alias dperm='sudo chmod +777 /var/run/docker.sock'
 
 function startsshagent()
 {
@@ -63,10 +49,8 @@ alias shhagent='ssh-add $HOME/.ssh/id_rsa_vm'
 alias getip="ip addr show eth0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}'"
 alias exd='sudo mv /usr/local/etc/php/conf.d/xdebug.ini.disabled /usr/local/etc/php/conf.d/xdebug.ini && sudo mv /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini.disabled /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && service apache2 graceful'
 alias dxd='sudo mv /usr/local/etc/php/conf.d/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini.disabled && sudo mv /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini.disabled && service apache2 graceful'
-#md () { docker exec -it mlp-containers_mlp-app_1 mysql --defaults-file=/mnt/mlp/config/mysql/root.cnf --prompt="\u@\h [\d]> " mlp_$@ ;}
 
 alias vim='usenvim'
-
 function usenvim()
 {
 	if [ -f "/usr/bin/nvim" ]; then
@@ -94,71 +78,28 @@ function grepri()
 {
     grep -ri "$@" *
 }
-function grepradmin()
-{
-    find /mnt/mlp/platform/admin | xargs grep -r -i --color=tty "$@"
-}
-function greplibrary()
-{
-    find /mnt/mlp/platform/lib | xargs grep -r -i --color=tty "$@"
-}
 function grepnonvendor()
 {
-    grep -ri --exclude-dir=vendor --exclude-dir=node/node_modules --exclude-dir=ckeditor --exclude-dir=ckeditor5 --exclude-dir=node_modules --exclude-dir=jquery-ui "$@" *
-}
-function grepsmarty()
-{
-    find /mnt/mlp/platform/smarty | xargs grep -r -i --color=tty "$@"
-}
-function grepsmartyaccessible()
-{
-    find /mnt/mlp/platform/smarty_accessible | xargs grep -r -i --color=tty "$@"
+	grep -ri --exclude-dir=vendor \
+         --exclude-dir=node_modules \
+         --exclude-dir=bootstrap/cache \
+         --exclude-dir=storage/framework \
+         --exclude-dir=storage/logs \
+         --exclude-dir=public/storage \
+         --exclude-dir=public/build \
+         --exclude-dir=public/css \
+         --exclude-dir=public/js \
+         --exclude-dir=resources/assets \
+	 --exclude-dir=jquery-ui
+         "$@" *
+
 }
 alias gr='grepr'
 alias gri='grepri'
-alias grl='greplibrary'
-alias gra='grepadmin'
 alias grnv='grepnonvendor'
-alias grs='grepsmarty'
-alias grsa='grepsmartyaccessible'
 alias r='redis-cli'
 alias rsup='sudo service redis-server start'
-alias load='/mnt/mlp/release/lib/release/load.sh'
 alias reloadalias="source ~/.bashrc && source ~/.bash_aliases"
-function tailsitelog()
-{
-    tail -n 50 /var/log/httpd/error/$1-error_log
-}
-alias tails='tailsitelog'
-function searchmessages()
-{
-    grep -n -C 1 "$@" /mnt/mlp/platform/locale/en_US/LC_MESSAGES/messages.po
-}
-function searchconfig()
-{
-    find /mnt/mlp/sites/*/config/ -name settings.json | xargs grep -i "$@"
-}
-function searchcss()
-{
-    find /mnt/mlp/sites/*/css | xargs grep -i "$@"
-}
-function searchmodules()
-{
-    find /mnt/mlp/sites/*/config/site_pages | xargs grep -i "$@"
-}
-#ACTIONS
-function flush()
-{
-    php /mnt/mlp/scripts/memcache_flush.php $@
-}
-function flush_pages()
-{
-    php /mnt/mlp/scripts/memcache_delete.php $@ site_page_routes ; php /mnt/mlp/scripts/memcache_delete.php $@ site_page_namespace
-}
-function compile_message()
-{
-    /mnt/mlp/scripts/release/scripts/compile_translations.sh
-}
 function gls()
 {
     git ls-files -m | xargs ls -ltr
@@ -174,88 +115,21 @@ function glsr()
         git show -s --format="%ci $C" "$C"
     done
 }
-alias xphp="XDEBUG_CONFIG="idekey=netbeans-xdebug" php"
 alias xvphp='XDEBUG_CONFIG="idekey=VSCODE" php'
-alias phpunit="/mnt/mlp/platform/vendor/phpunit/phpunit/phpunit"
-alias atest="phpunit --include-path austin -c /mnt/mlp/platform/tests/phpunit.xml"
-alias saml2aws="~/saml2aws/bin/saml2aws"
-alias loginnp="aws --profile=comm-np sso login" 
-alias loginp="aws --profile=comm-p sso login" 
-alias shownp="aws --color off --profile comm-np ec2 describe-instances --query \"Reservations[*].Instances[*].{IP:PrivateIpAddress,Name:Tags[?Key=='Name']|[0].Value,InstanceId:InstanceId,MLPPlatformVersion:Tags[?Key=='mlp_platform_version']|[0].Value} | sort_by(@, &[0].Name)\" --output table"
-alias showp="aws --color off --profile comm-p ec2 describe-instances --query \"Reservations[*].Instances[*].{IP:PrivateIpAddress,Name:Tags[?Key=='Name']|[0].Value,InstanceId:InstanceId,MLPPlatformVersion:Tags[?Key=='mlp_platform_version']|[0].Value} | sort_by(@, &[0].Name)\" --output table"
-function connect() 
-{ 
-	aws --profile comm-$1-a ssm start-session --target=$(aws --profile comm-$1-a ec2 describe-instances --filters "Name=tag:Name,Values=psfy-$201ue1-tools" --query "Reservations[*].Instances[*].InstanceId" --output text | tail -n1) 
-} 
-alias connect="connect" 
-function pcomm-ssm() 
-{ 
-  USAGE="Usage: pcomm-ssm <prod|stage|test|poc> ?<app|tools|sphinx|lb> ?<count>" 
-  [ -z "$2" ] && itype=tools || itype=$2 
+alias show="aws --color off ec2 describe-instances --query "Reservations[*].Instances[*].{IP:PrivateIpAddress,Name:Tags[?Key=='Name']|[0].Value,InstanceId:InstanceId,Environment:Tags[?Key=='Environment']|[0].Value, Tags:Tags[*]} | sort_by(@, &[0].Name)" --output table"
+function tcssm()
+{
+  USAGE="Usage: tcssm <staging|production> ?<admin> ?<count>" 
+  [ -z "$2" ] && itype=admin || itype=$2 
   [ -z "$3" ] && count=1 || count=$3 
-  case "$1" in 
-    prod) 
-      PROFILE=comm-p 
-    ;; 
-    stage|test|poc) 
-      PROFILE=comm-np 
-    ;; 
-    *) 
-      echo $USAGE; return 1 
-    ;; 
-  esac 
-  case "$itype" in 
-    app) 
-      ENV=psfy-${1}01ue1-application 
-    ;; 
-    tools) 
-      ENV=psfy-${1}01ue1-tools 
-    ;; 
-    sphinx) 
-      ENV=psfy-${1}01ue1-sphinx 
-    ;; 
-    mcp) 
-      ENV=psfy-${1}01ue1-mcp 
-    ;; 
-    lb) 
-      ENV=psfy-${1}01ue1-haproxy 
-    ;; 
-    docker) 
-      ENV=psfy-np-docker01
-    ;; 
-    *) 
-      echo $USAGE; return 1 
-    ;; 
-  esac 
-  instance=$(aws --profile ${PROFILE} ec2 describe-instances \
-                 --filters "Name=tag:Name,Values=${ENV}" \
+
+  NAME="${1}-${itype}"
+  instance=$(aws ec2 describe-instances \
+                 --filters "Name=tag:Name,Values=${NAME}" \
                  --query "Reservations[*].Instances[*].InstanceId" \
                  --output text \
-		 | sort | head -n ${count} | tail -n1)
-  echo "Connecting to ${instance} : ${ENV} : instance ${count}" 
-  aws --profile ${PROFILE} ssm start-session --target=${instance} 
-} 
-alias pcomm="pcomm-ssm" 
-function console() 
-{ 
-  USAGE="Usage: console <np|p> ?<link>" 
-  [ -z "$2" ] && link=$2 
-  case "$1" in 
-    p) 
-      PROFILE=comm-p-a 
-    ;; 
-    np) 
-      PROFILE=comm-np-a 
-    ;; 
-    *) 
-      echo $USAGE; return 1 
-    ;; 
-  esac 
-  saml2aws login -a ${PROFILE} 
-  saml2aws console -a ${PROFILE} $2 
-} 
-alias awsconsole="console"
-alias developappend='instance_id=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=psfy-np-docker01" --query "Reservations[*].Instances[*].InstanceId" --output text --profile comm-np) && aws ssm send-command --instance-ids "$instance_id" --document-name "docker-develop-append" --profile comm-np'
-alias qatestappend='instance_id=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=psfy-np-docker01" --query "Reservations[*].Instances[*].InstanceId" --output text --profile comm-np) && aws ssm send-command --instance-ids "$instance_id" --document-name "docker-qatest-append" --profile comm-np'
-alias qatestrebuild='instance_id=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=psfy-np-docker01" --query "Reservations[*].Instances[*].InstanceId" --output text --profile comm-np) && aws ssm send-command --instance-ids "$instance_id" --document-name "docker-qatest-rebuild" --profile comm-np'
-
+     | sort | head -n ${count} | tail -n1)
+  echo "Connecting to ${instance} : ${NAME} : instance ${count}"
+  aws ssm start-session --target=${instance}
+}
+alias tcssm="tcssm"

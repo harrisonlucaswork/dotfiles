@@ -12,3 +12,6 @@ source $HOME/.bashrc
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
 export PATH="/Users/harrisonlucas/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
+. "$HOME/.cargo/env"
+
+export PATH="/Users/lucasharrison/.local/share/solana/install/active_release/bin:$PATH"
