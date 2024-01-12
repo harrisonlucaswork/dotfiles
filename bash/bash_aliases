@@ -116,7 +116,7 @@ function glsr()
     done
 }
 alias xvphp='XDEBUG_CONFIG="idekey=VSCODE" php'
-alias show="aws --color off ec2 describe-instances --query "Reservations[*].Instances[*].{IP:PrivateIpAddress,Name:Tags[?Key=='Name']|[0].Value,InstanceId:InstanceId,Environment:Tags[?Key=='Environment']|[0].Value, Tags:Tags[*]} | sort_by(@, &[0].Name)" --output table"
+alias show="aws --color off ec2 describe-instances --query \"Reservations[*].Instances[*].{IP:PrivateIpAddress, Name:Tags[?Key=='Name']|[0].Value, InstanceId:InstanceId, Environment:Tags[?Key=='Environment']|[0].Value, AllTags:join(', ', Tags[*].join('=', [Key, Value]))} | sort_by(@, &[0].Name)\" --output table"
 function tcssm()
 {
   USAGE="Usage: tcssm <staging|production> ?<admin> ?<count>" 
