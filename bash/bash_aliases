@@ -90,7 +90,8 @@ function grepnonvendor()
          --exclude-dir=public/css \
          --exclude-dir=public/js \
          --exclude-dir=resources/assets \
-	 --exclude-dir=jquery-ui
+	 --exclude-dir=jquery-ui \
+	 --exclude-dir=var \
          "$@" *
 
 }
