@@ -5,14 +5,11 @@ $directory\
 $git_branch\
 $git_state\
 $git_status\
-$git_metrics\
-$fill\
-$nodejs\
-$cmd_duration $jobs $time\
-$line_break\
-$character"""
+$cmd_duration$jobs$time $character
+"""
 
 add_newline = true
+
 [aws]
 format = 'on [$symbol($profile )(\($region\) )(\[$duration\])]($style)'
 symbol = '☁️  '
@@ -34,7 +31,7 @@ disabled = false
 
 [cmd_duration]
 min_time = 2000
-format = 'took [$duration]($style) '
+format = ' [$duration]($style)'
 style = 'yellow'
 show_milliseconds = false
 disabled = false
@@ -93,7 +90,7 @@ truncation_length = 3
 truncate_to_repo = true
 fish_style_pwd_dir_length = 0
 use_logical_path = true
-format = '[$path]($style)[$read_only]($read_only_style) '
+format = '[$path]($style)[$read_only]($read_only_style)'
 style = 'purple'
 disabled = false
 read_only = '🔒'
@@ -190,10 +187,10 @@ disabled = false
 [gcloud.region_aliases]
 
 [git_branch]
-format = "on [$symbol$branch(:$remote_branch)]($style) "
-symbol = ' '
+format = " [$symbol$branch(:$remote_branch)]($style)"
+symbol = ''
 style = '117'
-truncation_length = 9223372036854775807
+truncation_length = 10
 truncation_symbol = '…'
 only_attached = false
 always_show_remote = false
@@ -201,7 +198,7 @@ disabled = false
 
 [git_commit]
 commit_hash_length = 7
-format = '[\($hash$tag\)]($style) '
+format = '[\($hash$tag\)]($style)'
 style = 'green'
 only_detached = true
 disabled = false
@@ -217,11 +214,11 @@ bisect = 'BISECTING'
 am = 'AM'
 am_or_rebase = 'AM/REBASE'
 style = 'yellow'
-format = '\([$state( $progress_current/$progress_total)]($style)\) '
+format = '\([$state( $progress_current/$progress_total)]($style)\)'
 disabled = false
 
 [git_status]
-format = '([\[$all_status$ahead_behind\]]($style) )'
+format = '([\[$all_status$ahead_behind\]]($style))'
 style = 'red'
 stashed = '\$'
 ahead = '⇡'
@@ -307,10 +304,10 @@ detect_folders = []
 
 [jobs]
 threshold = 1
-format = '[$symbol$number]($style) '
+format = '[$symbol$number]($style)'
 symbol = '✦'
 style = 'blue'
-disabled = false
+disabled = true
 
 [julia]
 format = 'via [$symbol($version )]($style)'
@@ -647,7 +644,7 @@ detect_files = []
 detect_folders = ['.terraform']
 
 [time]
-format = 'at [$time]($style) '
+format = ' [$time]($style)'
 style = 'yellow'
 use_12hr = false
 disabled = false
@@ -655,7 +652,7 @@ utc_time_offset = 'local'
 time_range = '-'
 
 [username]
-format = '[$user]($style) in '
+format = '[$user]($style)'
 style_root = 'red'
 style_user = 'yellow'
 show_always = false

@@ -92,12 +92,19 @@ function grepnonvendor()
          --exclude-dir=resources/assets \
 	 --exclude-dir=jquery-ui \
 	 --exclude-dir=var \
-         "$@" *
+	 --exclude-dir=static \
+	 --exclude-dir=cache \
+         "$@" * | cut -b 1-400
 
 }
+alias grnv='grepnonvendor'
+function grepnonvendorfilenames()
+{
+	grepnonvendor "$@" | awk -F: '{print $1}' | sort | uniq
+}
+alias grnvf='grepnonvendorfilenames'
 alias gr='grepr'
 alias gri='grepri'
-alias grnv='grepnonvendor'
 alias r='redis-cli'
 alias rsup='sudo service redis-server start'
 alias reloadalias="source ~/.bashrc && source ~/.bash_aliases"
