@@ -133,7 +133,7 @@ function tcssm()
 
   NAME="${1}-${itype}"
   instance=$(aws ec2 describe-instances \
-                 --filters "Name=tag:Name,Values=${NAME}" \
+		 --filters "Name=tag:Name,Values=${NAME}" "Name=instance-state-name,Values=running" \
                  --query "Reservations[*].Instances[*].InstanceId" \
                  --output text \
      | sort | head -n ${count} | tail -n1)
