@@ -810,3 +810,148 @@ function tcssm()
   aws ssm start-session --target=${instance}
 }
 alias tcssm="tcssm"
+eval "$(starship init zsh)"
+# User specific aliases and functions
+alias cdtc='cd /Volumes/tc-case-sensitive/thrivecart'
+alias cda='cd /Volumes/tc-case-sensitive/admin'
+alias cddep='cd /Volumes/tc-case-sensitive/deployment'
+alias k='kubectl'
+alias n='nerdctl'
+
+#GIT
+alias gundo='git reset --soft HEAD^ && git reset'
+alias gcommit='git commit -a -m '
+alias ghistory='less .git/logs/HEAD'
+alias gco='git checkout '
+alias gs='git status'
+alias gd='git diff'
+alias gl='git log -p -c'
+alias gcl='git log --pretty=format:"%h - %an, %ad : %s" --date=short '
+alias gtree='git log --graph --pretty=format:"%C(yellow)%h%Creset%C(blue)%d%Creset %C(white bold)%s%Creset %C(white dim)(by %an %ar)%Creset" --all'
+alias glog='git log --graph --pretty=format:"%C(yellow)%h%Creset%C(blue)%d%Creset %C(white bold)%s%Creset %C(white dim)(by %an %ar)%Creset" --abbrev-commit'
+alias gbranch='git log --graph --pretty=format:"%C(yellow)%h%Creset%C(blue)%d%Creset %C(white bold)%s%Creset %C(white dim)(by %an %ar)%Creset" --branches'
+alias gam='git am -3'
+alias gref='git reflog --date=local'
+alias expire_file='sudo touch -d "5 years ago" $@'
+#DB
+m () { mysql --defaults-file=/mnt/mlp/config/mysql/root.cnf --prompt="\u@\h [\d]> " $@ ;}
+mr () { mysql --defaults-file=/mnt/mlp/config/mysql/root.cnf --prompt="\u@\h [\d]> " mlp_$@ ;}
+
+#DOCKER
+alias ma='docker exec -it mlp-containers_mlp-app_1 mysql --defaults-file=/mnt/mlp/config/mysql/root.cnf mlp_austin;'
+alias dapp='connectToDockerAppWithAliases'
+function connectToDockerAppWithAliases()
+{
+	docker cp ~/.gitconfig mlp-containers_mlp-app_1:/etc/gitconfig && \
+	docker exec mlp-containers_mlp-app_1 bash -c "[[ ! -d /root/.ssh ]] && mkdir /root/.ssh"
+	docker cp ~/.ssh/id_rsa mlp-containers_mlp-app_1:/root/.ssh/id_rsa && \
+	docker cp ~/.ssh/id_rsa.pub mlp-containers_mlp-app_1:/root/.ssh/id_rsa.pub && \
+	docker cp ~/.bash_aliases mlp-containers_mlp-app_1:/root/.bash_aliases && \
+	docker exec mlp-containers_mlp-app_1 bash -c "chown root:root /root/.ssh/* \
+		&& chown root:root /root/.bash_aliases \
+		&& cat /root/.bash_aliases >> /root/.bashrc \
+		&& source /root/.bashrc"
+	docker exec -it mlp-containers_mlp-app_1 bash
+}
+
+function startsshagent()
+{
+	eval `ssh-agent`
+	ssh-add /root/.ssh/id_rsa
+}
+alias shhagent='ssh-add $HOME/.ssh/id_rsa_vm'
+alias getip="ip addr show eth0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}'"
+alias exd='sudo mv /usr/local/etc/php/conf.d/xdebug.ini.disabled /usr/local/etc/php/conf.d/xdebug.ini && sudo mv /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini.disabled /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && service apache2 graceful'
+alias dxd='sudo mv /usr/local/etc/php/conf.d/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini.disabled && sudo mv /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini.disabled && service apache2 graceful'
+
+alias vim='usenvim'
+function usenvim()
+{
+	if [ -f "/usr/bin/nvim" ]; then
+		/usr/bin/nvim $1
+	else
+		/usr/bin/vim $1
+	fi
+}
+
+alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
+
+#PARSE
+alias grep='grep --color=tty'
+alias findf='find . -type f -name $1'
+alias findr='find . -type f -regex $1'
+function grepr()
+{
+    grep -r "$@" *
+}
+function greprn()
+{
+    grep -r -n "$@" *
+}
+function grepri()
+{
+    grep -ri "$@" *
+}
+function grepnonvendor()
+{
+	grep -ri --exclude-dir=vendor \
+         --exclude-dir=node_modules \
+         --exclude-dir=bootstrap/cache \
+         --exclude-dir=storage/framework \
+         --exclude-dir=storage/logs \
+         --exclude-dir=public/storage \
+         --exclude-dir=public/build \
+         --exclude-dir=public/css \
+         --exclude-dir=public/js \
+         --exclude-dir=resources/assets \
+	 --exclude-dir=jquery-ui \
+	 --exclude-dir=var \
+	 --exclude-dir=static \
+	 --exclude-dir=cache \
+         "$@" * | cut -b 1-400
+
+}
+alias grnv='grepnonvendor'
+function grepnonvendorfilenames()
+{
+	grepnonvendor "$@" | awk -F: '{print $1}' | sort | uniq
+}
+alias grnvf='grepnonvendorfilenames'
+alias gr='grepr'
+alias gri='grepri'
+alias r='redis-cli'
+alias rsup='sudo service redis-server start'
+alias reloadalias="source ~/.bashrc && source ~/.bash_aliases"
+function gls()
+{
+    git ls-files -m | xargs ls -ltr
+}
+function glsd
+{
+ git status --porcelain | awk '{print $2}' | xargs ls -ltr
+}
+function glsr()
+{
+    for C in $(git for-each-ref --sort=committerdate refs/heads --format='%(refname)')
+    do
+        git show -s --format="%ci $C" "$C"
+    done
+}
+alias xvphp='XDEBUG_CONFIG="idekey=VSCODE" php'
+alias show="aws --color off ec2 describe-instances --query \"Reservations[*].Instances[*].{IP:PrivateIpAddress, Name:Tags[?Key=='Name']|[0].Value, InstanceId:InstanceId, Environment:Tags[?Key=='Environment']|[0].Value, AllTags:join(', ', Tags[*].join('=', [Key, Value]))} | sort_by(@, &[0].Name)\" --output table"
+function tcssm()
+{
+  USAGE="Usage: tcssm <stage|prod> ?<admin|app|worker> ?<count>" 
+  [ -z "$2" ] && itype=admin || itype=$2 
+  [ -z "$3" ] && count=1 || count=$3 
+
+  NAME="${1}-${itype}"
+  instance=$(aws ec2 describe-instances \
+		 --filters "Name=tag:Name,Values=${NAME}" "Name=instance-state-name,Values=running" \
+                 --query "Reservations[*].Instances[*].InstanceId" \
+                 --output text \
+     | sort | head -n ${count} | tail -n1)
+  echo "Connecting to ${instance} : ${NAME} : instance ${count}"
+  aws ssm start-session --target=${instance}
+}
+alias tcssm="tcssm"
