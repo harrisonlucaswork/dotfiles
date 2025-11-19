@@ -1,10 +1,3 @@
-# User specific aliases and functions
-alias cdtc='cd /Volumes/tc-case-sensitive/thrivecart'
-alias cda='cd /Volumes/tc-case-sensitive/admin'
-alias cddep='cd /Volumes/tc-case-sensitive/deployment'
-alias k='kubectl'
-alias n='nerdctl'
-
 #GIT
 alias gundo='git reset --soft HEAD^ && git reset'
 alias gcommit='git commit -a -m '
@@ -48,8 +41,6 @@ function startsshagent()
 }
 alias shhagent='ssh-add $HOME/.ssh/id_rsa_vm'
 alias getip="ip addr show eth0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}'"
-alias exd='sudo mv /usr/local/etc/php/conf.d/xdebug.ini.disabled /usr/local/etc/php/conf.d/xdebug.ini && sudo mv /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini.disabled /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && service apache2 graceful'
-alias dxd='sudo mv /usr/local/etc/php/conf.d/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini.disabled && sudo mv /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini.disabled && service apache2 graceful'
 
 alias vim='usenvim'
 function usenvim()
@@ -90,6 +81,7 @@ function grepnonvendor()
          --exclude-dir=public/build \
          --exclude-dir=public/css \
          --exclude-dir=public/js \
+         --exclude-dir=public/ember/assets \
          --exclude-dir=resources/assets \
 	 --exclude-dir=jquery-ui \
 	 --exclude-dir=var \
