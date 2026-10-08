@@ -1,0 +1,36 @@
+# Material Monokai High Contrast, taken from the VS Code theme
+# (vscode/Material-Monokai-High-Contrast-color-theme.json).
+mode = "dark"
+
+accent = "#9dff00"
+selection = "#3f525b"
+muted = "#5f7a87"
+
+background = "#263238"
+dark_background = "#192227"
+darker_background = "#11181b"
+lighter_background = "#2f3e45"
+
+foreground = "#f8f8f2"
+dark_foreground = "#5f7a87"
+light_foreground = "#cfcfc2"
+bright_foreground = "#ffffff"
+
+red = "#ff2c96"
+yellow = "#e6db74"
+orange = "#fd971f"
+green = "#9dff00"
+cyan = "#2edcff"
+blue = "#82aaff"
+magenta = "#b78aff"
+brown = "#75715e"
+
+bright_red = "#ff2c96"
+bright_yellow = "#e6db74"
+bright_green = "#9dff00"
+bright_cyan = "#2edcff"
+bright_blue = "#82aaff"
+bright_magenta = "#b78aff"
+
+hyprland_active_border = "rgba(9dff00ee) rgba(2edcffee) 45deg"
+hyprland_inactive_border = "rgba(5f7a87aa)"
