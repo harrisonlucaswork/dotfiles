@@ -1,13 +1,11 @@
 #!/bin/bash
 
+# Only relevant on machines with the MLP platform checkout
 if [ ! -d "/mnt/mlp/platform/.git" ]
 then
 	exit 0
 fi
 
-if [ -z "$DOTFILES_LOCATION" ]
-then
-	DOTFILES_LOCATION="${HOME}/dotfiles"
-fi
+source "$(dirname "${BASH_SOURCE[0]}")/../lib.sh"
 
-cp -p $DOTFILES_LOCATION/platformhooks/pre-commit /mnt/mlp/platform/.git/hooks/pre-commit
+cp -p "$DOTFILES_LOCATION/platformhooks/pre-commit" /mnt/mlp/platform/.git/hooks/pre-commit

@@ -500,7 +500,7 @@ python_binary = [
 format = 'via [${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
 version_format = 'v${raw}'
 style = 'yellow'
-symbol = '�� '
+symbol = '🐍 '
 disabled = false
 detect_extensions = ['py']
 detect_files = [
@@ -532,7 +532,7 @@ detect_folders = ['.Rproj.user']
 
 [red]
 format = 'via [$symbol($version )]($style)'
-symbol = '�� '
+symbol = '🔺 '
 style = 'red'
 disabled = false
 detect_extensions = [

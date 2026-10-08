@@ -5,13 +5,14 @@ set -e
 ###
 # Installation of packages, configurations, and dotfiles.
 ###
-DOTFILES_LOCATION=$HOME/dotfiles
-export DOTFILES_LOCATION;
+DOTFILES_LOCATION="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+export DOTFILES_LOCATION
 
 ###
-# Install dependencies
+# Run each component's installer
 ###
-for i in $DOTFILES_LOCATION/*/install.sh
+for i in "$DOTFILES_LOCATION"/*/install.sh
 do
-	bash $i
+	echo "==> $(basename "$(dirname "$i")")"
+	bash "$i"
 done

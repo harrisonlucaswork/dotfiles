@@ -42,15 +42,7 @@ function startsshagent()
 alias shhagent='ssh-add $HOME/.ssh/id_rsa_vm'
 alias getip="ip addr show eth0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}'"
 
-alias vim='usenvim'
-function usenvim()
-{
-	if [ -f "/usr/bin/nvim" ]; then
-		/usr/bin/nvim $1
-	else
-		/usr/bin/vim $1
-	fi
-}
+command -v nvim &> /dev/null && alias vim='nvim'
 
 alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
 
