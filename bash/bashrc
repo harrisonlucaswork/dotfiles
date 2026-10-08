@@ -33,3 +33,6 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 
 # Personal aliases and functions (override Omarchy's where they overlap)
 [ -f ~/.bash_aliases ] && . ~/.bash_aliases
+
+# Hermes Agent command
+case ":$PATH:" in *":$HOME/.local/bin:"*) ;; *) export PATH="$HOME/.local/bin:$PATH" ;; esac

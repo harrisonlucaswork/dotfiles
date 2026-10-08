@@ -1,0 +1,17 @@
+[Unit]
+Description=Combo local dev stack (bin/dev up)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=%h/combo
+ExecStart=%h/combo/bin/dev up
+ExecStop=%h/combo/bin/dev down
+Restart=on-failure
+RestartSec=15
+TimeoutStartSec=600
+
+[Install]
+WantedBy=default.target
