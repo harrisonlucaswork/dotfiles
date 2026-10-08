@@ -1,0 +1,2 @@
+repeale.material-monokai
+vscode-icons-team.vscode-icons

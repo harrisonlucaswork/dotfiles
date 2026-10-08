@@ -1,0 +1,14 @@
+{
+    "workbench.colorTheme": "Material Monokai High Contrast",
+    "workbench.iconTheme": "vscode-icons",
+    "editor.fontFamily": "Dank-Mono-Italic,Dank Mono,Operator Mono Medium Italic,Operator Mono Medium,Consolas, 'Courier New', monospace",
+    "editor.fontSize": 16,
+    "editor.fontLigatures": true,
+    "editor.bracketPairColorization.enabled": false,
+    "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font",
+    "workbench.colorCustomizations": {
+        "editorIndentGuide.activeBackground": "#ff0000"
+    },
+    "update.mode": "none",
+    "vsicons.dontShowNewVersionMessage": true
+}
