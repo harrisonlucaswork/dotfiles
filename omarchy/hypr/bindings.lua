@@ -41,3 +41,6 @@ o.bind("SUPER + L", "Move window right", hl.dsp.window.move({ direction = "r" })
 o.bind("SUPER + SHIFT + J", "Toggle window split", hl.dsp.layout("togglesplit"))
 o.bind("SUPER + SHIFT + K", "Keybindings", "omarchy-menu-keybindings")
 o.bind("SUPER + SHIFT + L", "Toggle workspace layout", "omarchy-hyprland-workspace-layout-toggle")
+
+-- macOS-style screenshot shortcut, same as PRINT. code:14 is the 5 key.
+o.bind("ALT + SHIFT + code:14", "Screenshot", "omarchy-capture-screenshot")
