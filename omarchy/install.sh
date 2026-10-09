@@ -9,6 +9,7 @@ fi
 source "$(dirname "${BASH_SOURCE[0]}")/../lib.sh"
 
 link "${DOTFILES_LOCATION}/omarchy/hypr/input.lua" "${HOME}/.config/hypr/input.lua"
+link "${DOTFILES_LOCATION}/omarchy/hypr/bindings.lua" "${HOME}/.config/hypr/bindings.lua"
 link "${DOTFILES_LOCATION}/omarchy/omarchy/shell.json" "${HOME}/.config/omarchy/shell.json"
 
 # Material Monokai High Contrast, to match VS Code. Re-applying the theme
