@@ -44,3 +44,9 @@ o.bind("SUPER + SHIFT + L", "Toggle workspace layout", "omarchy-hyprland-workspa
 
 -- macOS-style screenshot shortcut, same as PRINT. code:14 is the 5 key.
 o.bind("ALT + SHIFT + code:14", "Screenshot", "omarchy-capture-screenshot")
+
+-- Send window to scratchpad on SUPER + SHIFT + S (replaces Google Maps and
+-- the default SUPER + ALT + S).
+hl.unbind("SUPER + SHIFT + S") -- was: Google Maps
+hl.unbind("SUPER + ALT + S") -- was: Move window to scratchpad
+o.bind("SUPER + SHIFT + S", "Move window to scratchpad", hl.dsp.window.move({ workspace = "special:scratchpad", follow = false }))
