@@ -61,6 +61,6 @@
 hl.config({
   input = {
     sensitivity = -0.5,
-    scroll_factor = 0.5,
+    scroll_factor = 0.3,
   },
 })
