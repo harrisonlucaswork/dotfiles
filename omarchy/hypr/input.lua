@@ -57,8 +57,10 @@
 -- hl.gesture({ fingers = 3, direction = "right", action = function() hl.dispatch(hl.dsp.focus({ direction = "r" })) end })
 
 -- Reduce mouse/trackpad sensitivity (range -1.0 to 1.0, default 0).
+-- Slow down mouse wheel scrolling (default 1.0).
 hl.config({
   input = {
-    sensitivity = -0.5
+    sensitivity = -0.5,
+    scroll_factor = 0.5,
   },
 })
