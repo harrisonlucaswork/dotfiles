@@ -1,0 +1,12 @@
+[Unit]
+Description=ngrok tunnel: https://inviting-flea-superb.ngrok-free.app -> Combo instance 01 (localhost:46201)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+ExecStart=/usr/bin/ngrok http --url=inviting-flea-superb.ngrok-free.app 127.0.0.1:46201 --log stdout --log-format logfmt
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=default.target

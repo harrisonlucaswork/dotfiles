@@ -32,13 +32,26 @@ then
 	fi
 fi
 
+# ngrok tunnel to Combo instance 01 (the night shift borrows it during runs; authtoken lives in ngrok's own config)
+if command -v ngrok > /dev/null
+then
+	link "${DOTFILES_LOCATION}/services/systemd/ngrok.service" "${HOME}/.config/systemd/user/ngrok.service"
+fi
+
 systemctl --user daemon-reload
 
 # Enable whichever of these user services are installed (their own tools create the units)
-for unit in combo-dev paperclipai hermes-gateway
+for unit in combo-dev ngrok hermes-gateway
 do
 	if systemctl --user cat "${unit}.service" > /dev/null 2>&1 && ! systemctl --user is-enabled --quiet "${unit}.service"
 	then
 		systemctl --user enable "${unit}.service"
 	fi
 done
+
+# Tailnet: Combo day instance on :443, night shift dashboard on :8443
+if command -v tailscale > /dev/null && tailscale status > /dev/null 2>&1
+then
+	tailscale serve --bg --https=443 http://127.0.0.1:46201 > /dev/null
+	tailscale serve --bg --https=8443 http://127.0.0.1:3200 > /dev/null
+fi
