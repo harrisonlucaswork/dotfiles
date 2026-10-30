@@ -1,6 +1,9 @@
 # Omarchy environment (OMARCHY_PATH + PATH), needed even for non-interactive shells
 [[ -r /usr/share/omarchy/default/bash/env-bootstrap ]] && source /usr/share/omarchy/default/bash/env-bootstrap
 
+# T3 Code CLI (written by the desktop app), needed even for non-interactive shells
+case ":$PATH:" in *":$HOME/.t3/bin:"*) ;; *) export PATH="$HOME/.t3/bin:$PATH" ;; esac
+
 # If not running interactively, don't do anything else
 [[ $- != *i* ]] && return
 
