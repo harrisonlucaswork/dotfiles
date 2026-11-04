@@ -34,7 +34,7 @@ fi
 
 # Diagonal dev stack: the AI code sandbox's egress proxy and the worktree app containers
 # reach workerd (:3000) and other host services from Docker bridges, which ufw drops by default
-if [ -d "${HOME}/diagonal" ] && command -v ufw > /dev/null && ! sudo grep -q "^-A ufw-user-input -s 172.16.0.0/12 -j ACCEPT" /etc/ufw/user.rules 2> /dev/null
+if [ -d "${HOME}/diagonal" ] && command -v ufw > /dev/null && ! grep -q "^-A ufw-user-input -s 172.16.0.0/12 -j ACCEPT" /etc/ufw/user.rules 2> /dev/null
 then
 	sudo ufw allow from 172.16.0.0/12 comment 'docker bridges to host (ai sandbox)'
 fi
