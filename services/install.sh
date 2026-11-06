@@ -39,6 +39,12 @@ then
 	sudo ufw allow from 172.16.0.0/12 comment 'docker bridges to host (ai sandbox)'
 fi
 
+# Diagonal dev stack: kernel 7.2 drops the sandbox egress proxy's TPROXY replies without accept_local
+if [ -d "${HOME}/diagonal" ]
+then
+	link "${DOTFILES_LOCATION}/services/systemd/diagonal-sandbox-accept-local.service" "${HOME}/.config/systemd/user/diagonal-sandbox-accept-local.service"
+fi
+
 # ngrok tunnel to Combo instance 01 (the night shift borrows it during runs; authtoken lives in ngrok's own config)
 if command -v ngrok > /dev/null
 then
@@ -48,7 +54,7 @@ fi
 systemctl --user daemon-reload
 
 # Enable whichever of these user services are installed (their own tools create the units)
-for unit in combo-dev ngrok hermes-gateway
+for unit in combo-dev ngrok hermes-gateway diagonal-sandbox-accept-local
 do
 	if systemctl --user cat "${unit}.service" > /dev/null 2>&1 && ! systemctl --user is-enabled --quiet "${unit}.service"
 	then

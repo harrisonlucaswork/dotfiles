@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# Diagonal's local AI code sandbox (workerd) starts a Cloudflare egress proxy container for each
+# sandbox. The proxy diverts traffic with TPROXY, and kernel 7.2 drops the diverted replies unless
+# accept_local is on in the proxy's network namespace. New namespaces do not inherit it, so set it
+# in every proxy as it starts.
+
+set -uo pipefail
+
+image="nicolaka/netshoot"
+
+fix() {
+	docker run --rm --net "container:$1" --privileged --entrypoint sh "$image" -c \
+		'sysctl -qw net.ipv4.conf.all.accept_local=1 net.ipv4.conf.eth0.accept_local=1 net.ipv4.conf.lo.accept_local=1' \
+		&& echo "accept_local set in $1"
+}
+
+is_proxy() {
+	[[ $1 == workerd-*-proxy ]]
+}
+
+docker image inspect "$image" > /dev/null 2>&1 || docker pull -q "$image" > /dev/null
+
+for name in $(docker ps --format '{{.Names}}')
+do
+	is_proxy "$name" && fix "$name"
+done
+
+docker events --filter type=container --filter event=start --format '{{.Actor.Attributes.name}}' |
+	while read -r name
+	do
+		is_proxy "$name" && fix "$name" &
+	done

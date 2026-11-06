@@ -1,0 +1,10 @@
+[Unit]
+Description=Diagonal AI sandbox: set accept_local in each workerd egress proxy (kernel 7.2 drops TPROXY replies otherwise)
+
+[Service]
+ExecStart=%h/dotfiles/services/bin/diagonal-sandbox-accept-local
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=default.target
